@@ -22,8 +22,7 @@ w_log = [[0,0],[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[9,9]]# placehold
 # really need to go to db and get the last 10 entries in case of power outage
 
 something_else=0 # Top level variable can be used as global
-t_max = 90 # number of seconds before excess time trigger 50 before this version now 60 7/2/19
-# raised to 90 in version 4 12/10/20
+t_max = 60 # number of seconds before excess time trigger 50 before this version now 60 7/2/19
 w_overrun = 3 # number of times it will retry
 seq_no = 0 # set on start up to 0 lets update_run1 know it's a fresh start
 # allow entry of seq_interval, should really have code to protect errors but well....

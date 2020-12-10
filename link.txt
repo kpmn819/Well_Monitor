@@ -1,0 +1,2 @@
+https://www.geeksforgeeks.org/inheritance-in-python/
+https://www.digitalocean.com/community/tutorials/understanding-class-inheritance-in-python-3

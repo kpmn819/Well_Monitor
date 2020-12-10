@@ -22,8 +22,7 @@ w_log = [[0,0],[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7],[8,8],[9,9]]# placehold
 # really need to go to db and get the last 10 entries in case of power outage
 
 something_else=0 # Top level variable can be used as global
-t_max = 90 # number of seconds before excess time trigger 50 before this version now 60 7/2/19
-# raised to 90 in version 4 12/10/20
+t_max = 50 # number of seconds before excess time trigger
 w_overrun = 3 # number of times it will retry
 seq_no = 0 # set on start up to 0 lets update_run1 know it's a fresh start
 # allow entry of seq_interval, should really have code to protect errors but well....
@@ -267,32 +266,28 @@ def main(): # The actual main program
 
         if t_run in range(t_max, t_max+9):
             send_mail('Well run time just exceeded: ' + t_runstr + ' Seconds')
-            print('First Alert Sent')
             time.sleep(10)
 
         if t_run in range(t_max + 10, t_max + 19):
             send_mail('Well run time abnormal high: ' + t_runstr + ' Seconds')
-            print('Second Alert Sent')
             time.sleep(10)
 
         if t_run in range(t_max + 20, t_max + 49):
-            global w_overrun #this was to be used for multiple restarts, no longer used
+            global w_overrun
             if wr_over.pstat == 1:
                 wr_over.change_stat() # turn on the overrun light
             print("Danger excess time exceeded")
-            print('Third Alert Sent')
             send_mail('WARNINIG: WELL ON TIME EXCESSIVE: '+ t_runstr + ' Seconds')
-            time.sleep(20)
-            print(t_run)
-                     
-            
-            
-        # this halts the program, could be used to turn off pump if so rigged
+            time.sleep(5)
+            send_mail('WARNINIG: WELL ON TIME EXCESSIVE: '+ t_runstr + ' Seconds') 
+            time.sleep(5) # modify this!!!!!!!!!!!!!!!!
+            print(w_overrun)
+            # turn off pump and wait 
+
         if t_run > t_max + 50:
             print("Total Shutdown Press Reset to Restart")
             #remove this and add code for reset button!!!!!!!!!!!!!
             send_mail('PROGRAM HALT WELL RUN EXCEEDED ' + t_runstr + ' SECONDS')
-            print('Forth and Final Alert Sent')
             what_now = input("PROGRAM HALT, WAITING FOR INPUT")
             wr_over.change_stat() # turn off the overrun light for any input
 
